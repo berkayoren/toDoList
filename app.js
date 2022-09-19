@@ -7,7 +7,20 @@ const addBtn = document.getElementById("todo-button");
 const todoInput = document.getElementById("todo-input");
 const todoUl = document.getElementById("todo-ul");
 
-let todos = [];
+// todos dizisini localStorage'daki veriler ile günceele
+//! eger localStorage'de todos adinda bir item bulunmaz ise boş array atamasi yap
+
+let todos = JSON.parse(localStorage.getItem("TODOS")) || [];
+
+console.log(todos);
+
+const renderSavedTodos = () => {
+  todos.array.forEach((todo) => {
+    createListElement(todo);
+  });
+};
+
+renderSavedTodos();
 
 addBtn.addEventListener("click", () => {
   if (todoInput.value.trim() === "") {
@@ -21,12 +34,16 @@ addBtn.addEventListener("click", () => {
 
     //! yeni bir li elementi olusturup bunu DOM'a bas
     createListElement(newTodo);
+
+    //? yeni olusturulan todo'yu diziye sakla
     todos.push(newTodo);
+    localStorage.setItem("TODOS", JSON.stringify(todos));
+    console.log(todos);
     todoInput.value = "";
   }
 });
 
-const createListElement = (newTodo) => {
+function createListElement(newTodo) {
   const { id, completed, text } = newTodo; //!destr.
 
   //? yeni bir li elementi olustur ve bu elemente obje icerisindeki
@@ -57,7 +74,7 @@ const createListElement = (newTodo) => {
   console.log(li);
   //? meydana gelen li elementini ul'ye child olarak ata
   todoUl.appendChild(li);
-};
+}
 
 todoUl.addEventListener("click", (e) => {
   console.log(e.target);
