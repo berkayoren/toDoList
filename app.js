@@ -2,35 +2,39 @@
 //*                     TODO APP
 //* ======================================================
 
-//? Selectors
+//?Selectors
 const addBtn = document.getElementById("todo-button");
 const todoInput = document.getElementById("todo-input");
 const todoUl = document.getElementById("todo-ul");
 
 addBtn.addEventListener("click", () => {
   if (todoInput.value.trim() === "") {
-    alert("Please enter new to do");
+    alert("PLease enter new todo");
   } else {
     const newTodo = {
       id: new Date().getTime(),
       completed: false,
       text: todoInput.value,
     };
-    //! yeni bir li elementi olusturup bunu dom'a bas
+
+    //! yeni bir li elementi olusturup bunu DOM'a bas
     createListElement(newTodo);
     todoInput.value = "";
   }
 });
 
 const createListElement = (newTodo) => {
-  const { id, completed, text } = newTodo; //! dest
-  //? yeni bir li elementi olustur ve bu elemente object icerisindeki id degerini ve completed classini ata
+  const { id, completed, text } = newTodo; //!destr.
+
+  //? yeni bir li elementi olustur ve bu elemente obje icerisindeki
+  //? id degerini ve completed class'ini ata
   const li = document.createElement("li");
-  // li.id = newTodo.id
+  // li.id = newTodo.id;
   li.setAttribute("id", id);
 
-  //   newTodo.completed ? li.classList.add("comleted") : "";
-  newTodo.completed && li.classList.add("checked");
+  // newTodo.completed ? li.classList.add("completed") : "";
+  completed && li.classList.add("checked");
+
   //? okey ikonu olustur ve li elementine bagla
   const okIcon = document.createElement("i");
   okIcon.setAttribute("class", "fas fa-check");
@@ -42,7 +46,7 @@ const createListElement = (newTodo) => {
   p.appendChild(pTextNode);
   li.appendChild(p);
 
-  //? delete ikonu oluştur ve li elementine bagla
+  //? delete ikonu olustur ve li elementine bagla
   const deleteIcon = document.createElement("i");
   deleteIcon.setAttribute("class", "fas fa-trash");
   li.appendChild(deleteIcon);
@@ -52,14 +56,25 @@ const createListElement = (newTodo) => {
   todoUl.appendChild(li);
 };
 
-//? enter tusu ile ekleme mumkun olsun
+todoUl.addEventListener("click", (e) => {
+  console.log(e.target);
+
+  //! event, bir delete butonundan geldi ise
+  if (e.target.classList.contains("fa-trash")) {
+    e.target.parentElement.remove();
+  }
+  if (e.target.classList.contains("fa-check")) {
+  }
+});
+
+//? Enter tusu ile ekleme mumkun olsun
 todoInput.addEventListener("keydown", (e) => {
   if (e.code === "Enter") {
     addBtn.click();
   }
 });
 
-//? Baslangicta input aktif hale gelsin
+//? Baslangicta input aktif olsun
 window.onload = function () {
   todoInput.focus();
 };
