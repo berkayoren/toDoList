@@ -13,7 +13,7 @@ addBtn.addEventListener("click", () => {
   } else {
     const newTodo = {
       id: new Date().getTime(),
-      compledted: false,
+      completed: false,
       text: todoInput.value,
     };
     //! yeni bir li elementi olusturup bunu dom'a bas
@@ -27,6 +27,8 @@ const createListElement = (newTodo) => {
   // li.id = newTodo.id
   li.setAttribute("id", newTodo.id);
 
+  newTodo.completed ? li.classList.add("comleted") : "";
+  //? okey ikonu olustur ve li elementine bagla
   const okIcon = document.createElement("i");
   okIcon.setAttribute("class", "fas fa-check");
   li.appendChild(okIcon);
@@ -42,6 +44,7 @@ const createListElement = (newTodo) => {
   deleteIcon.setAttribute("class", "fas fa-trash");
   li.appendChild(deleteIcon);
 
+  console.log(li);
   //? meydana gelen li elementini ul'ye child olarak ata
   todoUl.appendChild(li);
 };
