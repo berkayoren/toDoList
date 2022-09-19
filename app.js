@@ -23,11 +23,13 @@ addBtn.addEventListener("click", () => {
 });
 
 const createListElement = (newTodo) => {
+  //? yeni bir li elementi olustur ve bu elemente object icerisindeki id degerini ve completed classini ata
   const li = document.createElement("li");
   // li.id = newTodo.id
   li.setAttribute("id", newTodo.id);
 
-  newTodo.completed ? li.classList.add("comleted") : "";
+  //   newTodo.completed ? li.classList.add("comleted") : "";
+  newTodo.completed && li.classList.add("checked");
   //? okey ikonu olustur ve li elementine bagla
   const okIcon = document.createElement("i");
   okIcon.setAttribute("class", "fas fa-check");
