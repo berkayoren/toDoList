@@ -23,10 +23,11 @@ addBtn.addEventListener("click", () => {
 });
 
 const createListElement = (newTodo) => {
+  const { id, completed, text } = newTodo; //! dest
   //? yeni bir li elementi olustur ve bu elemente object icerisindeki id degerini ve completed classini ata
   const li = document.createElement("li");
   // li.id = newTodo.id
-  li.setAttribute("id", newTodo.id);
+  li.setAttribute("id", id);
 
   //   newTodo.completed ? li.classList.add("comleted") : "";
   newTodo.completed && li.classList.add("checked");
@@ -37,7 +38,7 @@ const createListElement = (newTodo) => {
 
   //? todo basligi icin bir p elementi ve yazi dugumu olusturarak li'ye bagla
   const p = document.createElement("p");
-  const pTextNode = document.createTextNode(newTodo.text);
+  const pTextNode = document.createTextNode(text);
   p.appendChild(pTextNode);
   li.appendChild(p);
 
