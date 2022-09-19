@@ -7,6 +7,8 @@ const addBtn = document.getElementById("todo-button");
 const todoInput = document.getElementById("todo-input");
 const todoUl = document.getElementById("todo-ul");
 
+let todos = [];
+
 addBtn.addEventListener("click", () => {
   if (todoInput.value.trim() === "") {
     alert("PLease enter new todo");
@@ -19,6 +21,7 @@ addBtn.addEventListener("click", () => {
 
     //! yeni bir li elementi olusturup bunu DOM'a bas
     createListElement(newTodo);
+    todos.push(newTodo);
     todoInput.value = "";
   }
 });
@@ -63,7 +66,11 @@ todoUl.addEventListener("click", (e) => {
   if (e.target.classList.contains("fa-trash")) {
     e.target.parentElement.remove();
   }
+
+  //! event bir okay butonundan geldi ise
   if (e.target.classList.contains("fa-check")) {
+    //? ilgili li elementinde checked adinda bir class'i varsa bunu sil aksi takdirde ekle (DOM)
+    e.target.parentElement.classList.toggle("checked");
   }
 });
 
